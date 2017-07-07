@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"></meta>
+    <title>Title</title>
+
+    <script
+            src="https://code.jquery.com/jquery-3.2.1.js"
+            integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE="
+            crossorigin="anonymous"></script>
+    <!-- Latest compiled and minified CSS & JS -->
+    <link rel="stylesheet" media="screen" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"></link>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+<body>
+<div class="jumbotron">
+    <div class="container">
+        <h1>JPA Example</h1>
+        <p>See how easy it is to use JPA with Spring Boot</p>
+    </div>
+</div>
+
+<form th:action="@{/employee_save}" method="post" role="form" th:object="${employee}">
+    <legend>Add Employee</legend>
+
+    <div class="form-group">
+        <label for="employeeName">Employee Name</label>
+        <input type="text" class="form-control" name="employeeName" id="employeeName" placeholder="Bob Belcher" th:field="*{name}"></input>
+    </div>
+
+    <div class="form-group">
+        <label for="employeeName">Employee Position</label>
+        <input type="text" class="form-control" name="employeePosition" id="employeePosition" placeholder="Owner" th:field="*{position}"></input>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+
+<form th:action="@{/employee_count}" method="post" role="form">
+    <legend>Count Employees Having Name</legend>
+
+    <div class="form-group">
+        <label for="name">Name</label>
+        <input type="text" class="form-control" name="name" id="name"></input>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+
+<div class="container">
+    <div class="row" th:if="${showName}">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+            <p th:text="${count}"></p>
+        </div>
+    </div>
+
+    <div class="row" th:if="${employees.size() > 0}">
+        <div class="row">
+            <table class="table table-striped table-hover">
+                <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Row</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="employee : ${employees}">
+                    <td th:text="${employee.id}"></td>
+                    <td th:text="${employee.name}"></td>
+                    <td th:text="${employee.position}"></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
